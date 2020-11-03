@@ -44,14 +44,19 @@ class MainContainer extends Component {
 		this.setState({
 			sortSelection: e.target.value,
 		});
-		this.sortStocks();
+		// this.sortStocks();
 	};
 
 	sortStocks = () => {
+		// if (this.state.sortSelection) {
 		if (this.state.sortSelection === "Alphabetically") {
 			return this.state.stocks.sort((a, b) => (a.name > b.name ? 1 : -1));
+			// return this.state.stocks;
 		} else if (this.state.sortSelection === "Price") {
 			return this.state.stocks.sort((a, b) => (a.price > b.price ? 1 : -1));
+			// }
+		} else {
+			return this.state.stocks;
 		}
 	};
 
@@ -63,7 +68,7 @@ class MainContainer extends Component {
 				<div className="row">
 					<div className="col-8">
 						<StockContainer
-							stocks={this.state.stocks}
+							stocks={this.sortStocks()}
 							addStock={this.addStock}
 						/>
 					</div>
