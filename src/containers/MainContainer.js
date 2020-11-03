@@ -11,34 +11,34 @@ class MainContainer extends Component {
   }
 
   componentDidMount () {
-    fetch('http://localhost:3004/stocks')
+    fetch('http://localhost:3000/stocks')
     .then(res => res.json())
     .then(stocks => this.setState({stocks}))
   }
 
-  handleClick = (stock) => {
-    if (!this.state.myStocks.includes(stock)) {
-      this.setState({
-        myStocks: [...this.state.myStocks, stock]
-      })}
-    else {this.setState({
-      myStocks: [...this.state.myStocks.filter(s => s !== stock)]
-    })}
-  }
-
-  // addStock = (stock) => {
+  // handleClick = (stock) => {
   //   if (!this.state.myStocks.includes(stock)) {
   //     this.setState({
   //       myStocks: [...this.state.myStocks, stock]
-  //     })
-  //   }
+  //     })}
+  //   else {this.setState({
+  //     myStocks: [...this.state.myStocks.filter(s => s !== stock)]
+  //   })}
   // }
 
-  // sellStock = (stock) => {
-  //   this.setState({
-  //     myStocks: [...this.state.myStocks.filter(s => s !== stock)]
-  //   })
-  // }
+  addStock = (stock) => {
+    if (!this.state.myStocks.includes(stock)) {
+      this.setState({
+        myStocks: [...this.state.myStocks, stock]
+      })
+    }
+  }
+
+  sellStock = (stock) => {
+    this.setState({
+      myStocks: [...this.state.myStocks.filter(s => s !== stock)]
+    })
+  }
 
   render() {
     return (
@@ -48,12 +48,12 @@ class MainContainer extends Component {
           <div className="row">
             <div className="col-8">
 
-              <StockContainer stocks={this.state.stocks} handleClick={this.handleClick}/>
+              <StockContainer stocks={this.state.stocks} addStock={this.addStock}/>
 
             </div>
             <div className="col-4">
 
-              <PortfolioContainer myStocks={this.state.myStocks} handleClick={this.handleClick}/>
+              <PortfolioContainer myStocks={this.state.myStocks} sellStock={this.sellStock}/>
 
             </div>
           </div>
