@@ -5,6 +5,25 @@ import SearchBar from '../components/SearchBar'
 
 class MainContainer extends Component {
 
+  state = {
+    stocks: [],
+    myStocks: []
+  }
+
+  componentDidMount () {
+    fetch('http://localhost:3000/stocks')
+    .then(res => res.json())
+    .then(stocks => this.setState({stocks}))
+  }
+
+  addStock = (stock) => {
+    if (!this.state.myStocks.includes(stock)) {
+      this.setState({
+        myStocks: [...this.state.myStocks, stock]
+      })
+    }
+  }
+
   render() {
     return (
       <div>
@@ -13,12 +32,12 @@ class MainContainer extends Component {
           <div className="row">
             <div className="col-8">
 
-              <StockContainer/>
+              <StockContainer stocks={this.state.stocks} addStock={this.addStock}/>
 
             </div>
             <div className="col-4">
 
-              <PortfolioContainer/>
+              <PortfolioContainer myStocks={this.state.myStocks}/>
 
             </div>
           </div>
